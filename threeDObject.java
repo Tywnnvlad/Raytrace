@@ -21,6 +21,8 @@ public abstract class threeDObject {
         return blueValue;
     }
     public void calculateColor(){
-
+    }
+    public double[] getNormal(){
+        
     }
 }

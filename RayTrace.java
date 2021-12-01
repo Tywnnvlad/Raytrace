@@ -60,33 +60,31 @@ public class RayTrace extends JComponent
 			// double screeny = 0.0;//screeny
 			double screenz = 1000.0;//screenz
 			// System.err.println("2222");
-
-			double xRed = -60.0;
-			double yRed = 0.0;
-			double zRed = 900.0;
-			double rRed = 10.0;
-
-			double xBlue = 0.0;
-			double yBlue =	0.0;
-			double zBlue = 50.0;
-			double rBlue = 3.0;
-			// System.err.println("3333");
+			//Red sphere
+			double xRed = -60.0;//x-axis
+			double yRed = 0.0;	//y-axis
+			double zRed = screenz + 100.0;//z-axis
+			double rRed = 10.0; //radius
+			//Blue sphere
+			double xBlue = 0.0;	//x-axis
+			double yBlue =	0.0;//y-axis
+			double zBlue = screenz + 50.0;//z-axis
+			double rBlue = 30; //radius
+			//Plane
 			double planea = 0;
-			double planeb = 100;
-			double planec = 1;
+			double planeb = 1;
+			double planec = 0;
 
 			///
 			List<threeDObject> conveyerBelt= new ArrayList<threeDObject>();
 			//Red sphere
 			conveyerBelt.add(new Sphere(xRed,yRed,zRed,rRed));
 			conveyerBelt.get(0).setColor(255,0,0);
-			// System.err.println("44444");
 
 			//Blue sphere
 			conveyerBelt.add(new Sphere(xBlue,yBlue,zBlue,rBlue));
 			conveyerBelt.get(1).setColor(0, 0, 255);
 			///
-			// System.err.println("5555");
 
 			//Infinite plane
 			conveyerBelt.add(new Plane(planea, planeb, planec));
@@ -116,28 +114,40 @@ public class RayTrace extends JComponent
 
 					for(int k=0; k < conveyerBelt.size(); k++){
 						// System.err.println("KLOOP");
-
+						if (i==250 && j==252) {
+							System.out.println("time: "+conveyerBelt.get(k).getT(paraline)+"\nobj: "+conveyerBelt.get(k));
+						}
 						if(conveyerBelt.get(k).getT(paraline)>=0){
-							if(primeTime==-1 || conveyerBelt.get(k).getT(paraline)<=primeTime){
+							if (i==250 && j==252) {
+								System.out.println("prime is -1? "+(primeTime==-1));
+								System.out.println("prime time: "+primeTime);
+								// primeObject.printT();
+							}
+							if(primeTime==-1 || conveyerBelt.get(k).getT(paraline)<primeTime){
 								// System.err.println("IF K LOOP");
 
 								primeTime = conveyerBelt.get(k).getT(paraline);
 								primeObject = conveyerBelt.get(k);
+								if (i==250 && j==252)
+								System.out.println("NEW PRIME IS: "+primeObject);
 							}							
 						}
 					}
+					
 					if(primeObject == null){
 						// System.err.println("IF PRIME NULL");
-
 						image.setRGB(i,j,makeColour(0,0,0));
 					}
 					else{
 						// System.err.println("LAST BOSS");
-
+						// primeObject.printT();
 						redValue = primeObject.getredValue();
 						greenValue = primeObject.getgreenValue();
 						blueValue = primeObject.getblueValue();
 						image.setRGB(i,j,makeColour(redValue, greenValue, blueValue));
+					}
+					if (i==250 && j == 280) {
+						image.setRGB(i, j, makeColour(255,255,0));
 					}
 	
 					
