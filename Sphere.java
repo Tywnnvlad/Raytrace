@@ -1,3 +1,4 @@
+import java.awt.Color;
 public class Sphere extends threeDObject{
 
     private double x;
@@ -9,7 +10,7 @@ public class Sphere extends threeDObject{
 
     
     private double ambient;//IA
-    private double diffuse;//KD
+    private double kd;//KD
 
     
     public Sphere(double x, double y, double z, double radius){
@@ -17,9 +18,6 @@ public class Sphere extends threeDObject{
         this.y = y;
         this.z = z;
         this.radius = radius;
-
-        ambient = 0.9;
-        diffuse = 0.1;
     }
    
 
@@ -79,15 +77,28 @@ public class Sphere extends threeDObject{
       return t1;
     } 
 	}
-  public double[] getNormal(ParametricLine line){
-    double normal[];
-    normal[0] = line.xfromt(getT(line))-x;
-    normal[1] = line.yfromt(getT(line))-y;
-    normal[3] = line.zfromt(getT(line))-z;
-    double divisor = ;
+  public double[] getNormal(double x1, double y1, double z1){
+    double[] normal = new double[3];
+    double divisor = Math.sqrt(
+      Math.pow((x1-x),2)+
+      Math.pow((y1-y), 2)+
+      Math.pow((z1-z), 2)
+    );
+    normal[0] = (x1-x)/divisor;
+    normal[1] = (y1-y)/divisor;
+    normal[2] = (z1-z)/divisor;
+
+    // double x1 = line.xfromt(getT(line);
+    // double y1 = line.yfromt(getT(line);
+    // double z1 = line.zfromt(getT(line));
+    // normal[0] = line.xfromt(getT(line))-x;
+    // normal[1] = line.yfromt(getT(line))-y;
+    // normal[3] = line.zfromt(getT(line))-z;
+    // double divisor = Math.sqrt(normal[1]);
     return normal;
-    )
+    
   }
+
   // public void printT(){
   //   System.out.println("T1:"+t1+" T2:"+t2);
   // }

@@ -5,9 +5,6 @@ public class Plane extends threeDObject{
     private double d;
     private double t;
 
-    private double ambient;//IA
-    private double diffuse;//KD
-
     public Plane(double a, double b, double c){
         this.a = a;
         this.b = b;
@@ -24,6 +21,21 @@ public class Plane extends threeDObject{
         // System.out.println();
         return t;
     }
+    public double[] getNormal(double x1, double y1, double z1){
+        double[] normal = new double[3];
+
+        double divisor = Math.sqrt(
+            Math.pow(a, 2)+
+            Math.pow(b, 2)+
+            Math.pow(c, 2)
+        );
+        normal[0]=a/divisor;
+        normal[1]=b/divisor;
+        normal[2]=c/divisor;
+        return normal;
+
+    }
+
     // public void printT(){
     //     // System.out.println("Plane: "+t);
     // }
