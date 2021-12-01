@@ -52,38 +52,45 @@ public class RayTrace extends JComponent
 			int width = 500;
 			int height = 500;
 			image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-			System.err.println("1111");
+			// System.err.println("1111");
 			double eyex = 0.0;//eyex
 			double eyey = 0.0;//eyey
 			double eyez = 0.0;//eyez
 			// double screenx = 0.0;//screenx
 			// double screeny = 0.0;//screeny
-			double screenz = 50.0;//screenz
-			System.err.println("2222");
+			double screenz = 1000.0;//screenz
+			// System.err.println("2222");
 
-			double xRed = 10.0;
+			double xRed = -60.0;
 			double yRed = 0.0;
-			double zRed = 70.0;
-			double rRed = 30.0;
+			double zRed = 900.0;
+			double rRed = 10.0;
 
 			double xBlue = 0.0;
 			double yBlue =	0.0;
-			double zBlue = 70.0;
-			double rBlue = 30.0;
-			System.err.println("3333");
+			double zBlue = 50.0;
+			double rBlue = 3.0;
+			// System.err.println("3333");
+			double planea = 0;
+			double planeb = 100;
+			double planec = 1;
 
 			///
 			List<threeDObject> conveyerBelt= new ArrayList<threeDObject>();
 			//Red sphere
 			conveyerBelt.add(new Sphere(xRed,yRed,zRed,rRed));
 			conveyerBelt.get(0).setColor(255,0,0);
-			System.err.println("44444");
+			// System.err.println("44444");
 
 			//Blue sphere
 			conveyerBelt.add(new Sphere(xBlue,yBlue,zBlue,rBlue));
 			conveyerBelt.get(1).setColor(0, 0, 255);
 			///
-			System.err.println("5555");
+			// System.err.println("5555");
+
+			//Infinite plane
+			conveyerBelt.add(new Plane(planea, planeb, planec));
+			conveyerBelt.get(2).setColor(0, 150, 150);
 
 			int redValue;
 			int greenValue;
@@ -93,11 +100,11 @@ public class RayTrace extends JComponent
 			// This double loop iterates through every pixel in the image
 			for(int i = 0; i<image.getWidth(); i++)
 			{
-				System.err.println("ILOOP");
+				// System.err.println("ILOOP");
 
 				for(int j=0; j<image.getHeight(); j++)
 				{
-					System.err.println("JLOOP");
+					// System.err.println("JLOOP");
 
 					// x1=i-250;
 					// y1=250-j;
@@ -105,14 +112,14 @@ public class RayTrace extends JComponent
 
 					double primeTime = -1;
 					threeDObject primeObject = null;
-					System.err.println("PRIMETIME ");
+					// System.err.println("PRIMETIME ");
 
 					for(int k=0; k < conveyerBelt.size(); k++){
-						System.err.println("KLOOP");
+						// System.err.println("KLOOP");
 
 						if(conveyerBelt.get(k).getT(paraline)>=0){
 							if(primeTime==-1 || conveyerBelt.get(k).getT(paraline)<=primeTime){
-								System.err.println("IF K LOOP");
+								// System.err.println("IF K LOOP");
 
 								primeTime = conveyerBelt.get(k).getT(paraline);
 								primeObject = conveyerBelt.get(k);
@@ -120,12 +127,12 @@ public class RayTrace extends JComponent
 						}
 					}
 					if(primeObject == null){
-						System.err.println("IF PRIME NULL");
+						// System.err.println("IF PRIME NULL");
 
 						image.setRGB(i,j,makeColour(0,0,0));
 					}
 					else{
-						System.err.println("LAST BOSS");
+						// System.err.println("LAST BOSS");
 
 						redValue = primeObject.getredValue();
 						greenValue = primeObject.getgreenValue();

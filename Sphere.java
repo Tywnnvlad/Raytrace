@@ -24,26 +24,7 @@ public class Sphere extends threeDObject{
         diffuse = 0.1;
     }
    
-    // public void setEye(double line.getOriginx(), double line.getOriginy(), double line.getOriginz()){
-    //     this.line.getOriginx() = line.getOriginx();
-    //     this.line.getOriginy() = line.getOriginy();
-    //     this.line.getOriginz() = line.getOriginz();
-    // }
-    // public void setScreen(double line.getDestinationx(), double line.getDestinationy(), double line.getDestinationz()){
-    //     this.line.getDestinationx() = line.getDestinationx();
-    //     this.line.getDestinationy() = line.getDestinationy();
-    //     this.line.getDestinationz() = line.getDestinationz();
-    // }
 
-    // public void setxscreen(double line.getDestinationx()){
-    //     this.line.getDestinationx() = line.getDestinationx();
-    // }
-    // public void setyscreen(double line.getDestinationy()){
-    //     this.line.getDestinationy() = line.getDestinationy();
-    // }
-    // public void setzscreen(double line.getDestinationz()){
-    //     this.line.getDestinationz() = line.getDestinationz();
-    // }
 
     // public double getA(double line.getOriginx(), double line.getOriginy(), double line.getOriginz(), double line.getDestinationx(), double line.getDestinationy(), double line.getDestinationz(), double x, double y, double z, double radius){
     public double getA(ParametricLine line){
