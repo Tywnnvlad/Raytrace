@@ -59,29 +59,34 @@ public class RayTrace extends JComponent
 			// double screenx = 0.0;//screenx
 			// double screeny = 0.0;//screeny
 			double screenz = 1000.0;//screenz
-			double xlight = -50;
-			double ylight = 30;
+
+			// double xlight = -300;
+			// double ylight = 50;
+			// double zlight = 0;
+			double xlight = -600;
+			double ylight = 1000;
 			double zlight = 0;
 			// System.err.println("2222");
 			//Red sphere
-			double xRed = -60.0;//x-axis
-			double yRed = 0.0;	//y-axis
-			double zRed = screenz + 100.0;//z-axis
-			double rRed = 10.0; //radius
+			double xRed = -75.0;//x-axis
+			double yRed = 60.0;	//y-axis
+			double zRed = screenz + 50.0;//z-axis
+			double rRed = 30.0; //radius
 			//Blue sphere
 			double xBlue = 0.0;	//x-axis
 			double yBlue =	0.0;//y-axis
 			double zBlue = screenz + 50.0;//z-axis
-			double rBlue = 30; //radius
+			double rBlue = 50; //radius
 			//Plane
 			double planea = 0;
 			double planeb = 1;
 			double planec = 0;
 
-			double diffusecoef = 0.9;
-			double ambient = 0.1;
-			///
+			double diffusecoef = 0.7;
+			double ambient = 0.3;
+			///List of all the objectss
 			List<threeDObject> conveyerBelt= new ArrayList<threeDObject>();
+
 			//Red sphere
 			conveyerBelt.add(new Sphere(xRed,yRed,zRed,rRed));
 			conveyerBelt.get(0).setColor(255,0,0,diffusecoef,ambient);
@@ -93,7 +98,7 @@ public class RayTrace extends JComponent
 
 			//Infinite plane
 			conveyerBelt.add(new Plane(planea, planeb, planec));
-			conveyerBelt.get(2).setColor(0, 150, 150,diffusecoef,ambient);
+			conveyerBelt.get(2).setColor(125,125, 240,diffusecoef,ambient);
 
 			// This double loop iterates through every pixel in the image
 			for(int i = 0; i<image.getWidth(); i++)
@@ -114,14 +119,14 @@ public class RayTrace extends JComponent
 
 					for(int k=0; k < conveyerBelt.size(); k++){
 						// System.err.println("KLOOP");
-						if (i==250 && j==252) {
-							// System.out.println("time: "+conveyerBelt.get(k).getT(paraline)+"\nobj: "+conveyerBelt.get(k));
-						}
+						// if (i==250 && j==252) {
+						// 	// System.out.println("time: "+conveyerBelt.get(k).getT(paraline)+"\nobj: "+conveyerBelt.get(k));
+						// }
 						if(conveyerBelt.get(k).getT(paraline)>=0){
-							if (i==250 && j==252) {
-								// System.out.println("prime is -1? "+(primeTime==-1));
-								// System.out.println("prime time: "+primeTime);
-							}
+							// if (i==250 && j==252) {
+							// 	// System.out.println("prime is -1? "+(primeTime==-1));
+							// 	// System.out.println("prime time: "+primeTime);
+							// }
 							if(primeTime==-1 || conveyerBelt.get(k).getT(paraline)<primeTime){
 								// System.err.println("IF K LOOP");
 
@@ -138,31 +143,17 @@ public class RayTrace extends JComponent
 						image.setRGB(i,j,makeColour(0,0,0));
 					}
 					else{
-						// System.err.println("LAST BOSS");
-						// primeObject.printT();
-						Color objectColor = primeObject.calculateColor(xlight, ylight, zlight, paraline.xfromt(primeTime), paraline.yfromt(primeTime), paraline.zfromt(primeTime));
-						// redValue = objectColor.getRed();
-						// greenValue = objectColor.getGreen();
-						// blueValue = objectColor.getBlue();
-						// image.setRGB(i,j,makeColour(redValue, greenValue, blueValue));
+					
+						Color objectColor = primeObject.calculateColor(xlight, ylight, zlight, paraline.xfromt(primeTime), paraline.yfromt(primeTime), paraline.zfromt(primeTime),conveyerBelt);
 						image.setRGB(i,j,objectColor.getRGB());
 					}
-					if (i==250 && j == 280) {
-						image.setRGB(i, j, makeColour(255,255,0));
-					}
-	
+				
 					
                     // Scale the colour between 0 and 255 based on the x value
                     // int linearInterpolatedRed = (int)((double)255*(double)i/(double)image.getWidth());
 
                     // Scale the colour between 0 and 255 based on the y value
-                    // int linearInterpolatedBlue = (int)((double)255*(double)j/(double)image.getHeight());
-
-					// redSphereT = getT(x0, y0, z0, x1, y1, z1, xRed, yRed, zRed, rRed);
-					// blueSphereT = getT(x0, y0, z0, x1, y1, z1, xBlue, yBlue, zBlue, rBlue);
-					// redSphereT = redSphere.getT();
-					// blueSphereT = blueSphere.getT();
-					
+          
 
 					// if(redSphereT>0 && blueSphereT>0){
 					// 	if(redSphereT>blueSphereT){

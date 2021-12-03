@@ -15,21 +15,21 @@ public class ParametricLine {
     public ParametricLine(double originx, double originy, double originz, double destinationx, double destinationy, double destinationz){
         this.originx = originx ;
         this.originy = originy ;
-        this.originx = originz ;
+        this.originz = originz ;
         this.destinationx = destinationx;
         this.destinationy = destinationy;
         this.destinationz = destinationz;
     }
     public double xfromt(double t){
-        double x = originx+(destinationx-originx)*t;
+        double x = originx+((destinationx-originx)*t);
         return x;
     }
     public double yfromt(double t){
-        double y = originy+(destinationy-originy)*t;
+        double y = originy+((destinationy-originy)*t);
         return y;
     }
     public double zfromt(double t){
-        double z = originz+(destinationz-originz)*t;
+        double z = originz+((destinationz-originz)*t);
         return z;
     }
     public double getOriginx(){

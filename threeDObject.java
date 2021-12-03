@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.util.List;
 
 public abstract class threeDObject {
 
@@ -20,22 +21,57 @@ public abstract class threeDObject {
         // this.diffuseintensity = diffuseintensity;
     }
 
-    public Color calculateColor(double xlight, double ylight, double zlight, double x1, double y1, double z1){
+    public Color calculateColor(double xlight, double ylight, double zlight, double x1, double y1, double z1, List<threeDObject> otherObjects){
         double[] normal = getNormal(x1, y1, z1);
         double[] light = new double[3];
+        Color rgb;
+        threeDObject thingInTheWay = null;
+        ParametricLine paraLine = new ParametricLine(x1, y1, z1, xlight, ylight, zlight);
+
         double divisor = Math.sqrt(
-            Math.pow(xlight, 2)+
-            Math.pow(ylight, 2)+
-            Math.pow(zlight, 2)
+            Math.pow((xlight-x1), 2)+
+            Math.pow((ylight-y1), 2)+
+            Math.pow((zlight-z1), 2)
         );
-        light[0]=xlight/divisor;
-        light[1]=ylight/divisor;
-        light[2]=zlight/divisor;
+        light[0]=(xlight-x1)/divisor;
+        light[1]=(ylight-y1)/divisor;
+        light[2]=(zlight-z1)/divisor;
+
+
+        // double divisor = Math.sqrt(
+        //     Math.pow((xlight-x1), 2)+
+        //     Math.pow((ylight-y1), 2)+
+        //     Math.pow((zlight-z1), 2)
+        // );
+        // light[0]=(xlight-x1)/divisor;
+        // light[1]=(ylight-y1)/divisor;
+        // light[2]=(zlight-z1)/divisor;
+
         double diffuseintensity = Math.max(0,dotProduction(normal, light));
         double diffuse = diffuseintensity*diffusecoef;
-        Color rgb = new Color((int)(redValue*(diffuse+ambient)),(int)(greenValue*(diffuse+ambient)),(int)(blueValue*(diffuse+ambient)));
 
-    
+        
+        for (int i=0; i<otherObjects.size(); i++) {
+            if(otherObjects.get(i).getT(paraLine)>0 ){
+                // System.out.println("WE SHOULD GET SHADOW!");
+            // if(otherObjects.get(i).getT(paraLine)>0 && otherObjects.get(i).getT(paraLine)<1){
+                thingInTheWay = otherObjects.get(i);
+            }
+        }
+
+        if (thingInTheWay != null) {
+            if (z1 > 1050){
+            System.out.println("There is an object: "+thingInTheWay+" T at: "+thingInTheWay.getT(paraLine)+" xyz: "+paraLine.xfromt(thingInTheWay.getT(paraLine))+","+paraLine.yfromt(thingInTheWay.getT(paraLine))+","+paraLine.zfromt(thingInTheWay.getT(paraLine)));
+            diffuse = 0;
+            }
+        }
+        // } else {
+        //     System.out.println("SHOULD GIVE AMBIENT ONLY");
+        //     rgb = new Color((int)(redValue*(ambient)),(int)(greenValue*(ambient)),(int)(blueValue*(ambient)));
+        //     System.out.println("Color: "+rgb.getRed()+", "+rgb.getGreen()+", "+rgb.getBlue());
+        // }
+        rgb = new Color((int)(redValue*(diffuse+ambient)),(int)(greenValue*(diffuse+ambient)),(int)(blueValue*(diffuse+ambient)));
+
         return rgb;
       }
 
