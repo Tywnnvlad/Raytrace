@@ -26,7 +26,7 @@ public class RayTrace extends JComponent {
 	// Construct the frame and make it exit when the x button is clicked
 	//
 	public static void main(String[] args) {
-		JFrame f = new JFrame("CMPT 315 - Assignment 4");
+		JFrame f = new JFrame("Raytracing Engine");
 
 		// Make the window closed when the x button is clicked
 		// This makes a new instance that overrides the windowClosing function
@@ -55,7 +55,7 @@ public class RayTrace extends JComponent {
 			double eyex = 0.0;// eyex
 			double eyey = 0.0;// eyey
 			double eyez = 0.0;// eyez
-	
+
 			double screenz = 1000.0;// screenz
 
 			double xlight = -600;
@@ -97,12 +97,11 @@ public class RayTrace extends JComponent {
 			conveyerBelt.add(new Plane(planea, planeb, planec));
 			conveyerBelt.get(2).setColor(137, 207, 240, diffusecoef, ambient);
 
-
 			// This double loop iterates through every pixel in the image
 			for (int i = 0; i < image.getWidth(); i++) {
-				
+
 				for (int j = 0; j < image.getHeight(); j++) {
-					
+
 					ParametricLine paraline = new ParametricLine(eyex, eyey, eyez, i - width / 2, height / 2 - j,
 							screenz);
 
@@ -110,9 +109,9 @@ public class RayTrace extends JComponent {
 					threeDObject primeObject = null;
 
 					for (int k = 0; k < conveyerBelt.size(); k++) {
-						
+
 						if (conveyerBelt.get(k).getT(paraline) >= 0) {
-							
+
 							if (primeTime == -1 || conveyerBelt.get(k).getT(paraline) < primeTime) {
 
 								primeTime = conveyerBelt.get(k).getT(paraline);
@@ -122,7 +121,7 @@ public class RayTrace extends JComponent {
 					}
 
 					if (primeObject == null) {
-				
+
 						image.setRGB(i, j, bgColor.getRGB());
 					} else {
 
